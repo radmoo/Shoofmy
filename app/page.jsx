@@ -60,7 +60,7 @@ const USE_CASES = [
   {
     icon: Mountain,
     title: "Explorer des paysages",
-    tagline: "Et si vous pouviez y être quelques minutes ?",
+    tagline: "Et si vous pouviez y être quelques minutes\u00A0?",
     desc: "Une plage, un sommet, un village perdu… demandez à quelqu'un de vous emmener voir l'endroit en direct.",
     image: "/usecases/explorer-des-paysages.webp",
     alt: "Grand paysage naturel",
@@ -69,14 +69,14 @@ const USE_CASES = [
     icon: PartyPopper,
     title: "Vivre un événement",
     tagline: "Ne regardez pas simplement les images après coup.",
-    desc: "Concert, festival, match ou fête locale : vivez l'ambiance pendant que ça se passe.",
+    desc: "Concert, festival, match ou fête locale\u00A0: vivez l'ambiance pendant que ça se passe.",
     image: "/usecases/vivre-un-evenement.webp",
     alt: "Foule devant la scène d'un concert en plein air",
   },
   {
     icon: Eye,
     title: "Voir ce qui se passe",
-    tagline: "Vous voulez savoir ce qu'il y a vraiment là-bas ?",
+    tagline: "Vous voulez savoir ce qu'il y a vraiment là-bas\u00A0?",
     desc: "Une rue animée, un lieu, une situation particulière ou simplement quelque chose qui attire votre attention… quelqu'un peut aller voir pour vous.",
     image: "/usecases/voir-ce-qui-se-passe.webp",
     alt: "Scène spontanée dans une rue",
@@ -84,15 +84,15 @@ const USE_CASES = [
   {
     icon: MapPin,
     title: "Avant de vous déplacer",
-    tagline: "Vous hésitez à faire le déplacement ?",
-    desc: "Faites vérifier l'endroit avant de vous déplacer : l'ambiance, l'accès, le lieu… vous saurez à quoi vous attendre.",
+    tagline: "Vous hésitez à faire le déplacement\u00A0?",
+    desc: "Faites vérifier l'endroit avant de vous déplacer\u00A0: l'ambiance, l'accès, le lieu… vous saurez à quoi vous attendre.",
     image: "/usecases/avant-de-vous-deplacer.webp",
     alt: "Personne qui vérifie un restaurant avant d'y aller",
   },
   {
     icon: Sparkles,
     title: "Une demande particulière",
-    tagline: "Vous avez une idée ?",
+    tagline: "Vous avez une idée\u00A0?",
     desc: "Échangez directement avec votre Reporter et faites-lui part de ce que vous souhaitez. Ensemble, vous décidez de ce qu'il fera sur place.",
     image: "/usecases/une-demande-particuliere.webp",
     alt: "Reporter qui montre un stand précis dans une foire",
@@ -222,10 +222,10 @@ export default function RootPage() {
         <div className="sf-hero-grid">
           <div>
             <h1 className="sf-display" style={{ fontSize: "clamp(24px, 6.6vw, 48px)", lineHeight: 1, marginBottom: 12, textTransform: "uppercase" }}>
-              Vous ne pouvez pas y être ?<br /><span style={{ color: "var(--signal)" }}>Quelqu'un peut y aller pour vous.</span>
+              Comme si vous y étiez.<br /><span style={{ color: "var(--signal)" }}>Quelqu'un peut y aller pour vous.</span>
             </h1>
             <p style={{ fontSize: 12.5, color: "var(--slate)", maxWidth: 440, marginBottom: 6, lineHeight: 1.4 }}>
-              Envie de découvrir, de vivre quelque chose ou simplement de voir ce qui se passe ailleurs ?
+              Envie de découvrir, de vivre quelque chose ou simplement de voir ce qui se passe ailleurs&nbsp;?
             </p>
             <p className="sf-display" style={{ fontSize: 12.5, marginBottom: 14, lineHeight: 1.3, textTransform: "uppercase" }}>
               Un Reporter se rend sur place et vous le montre en direct.
@@ -394,9 +394,9 @@ export default function RootPage() {
             le contenu prime sur la compacité, les cartes sont donc plus hautes
             que l'ancien format (2 colonnes sur mobile, 3 sur desktop). */}
         <div>
-          <h2 className="sf-display" style={{ fontSize: 24, marginBottom: 8, textTransform: "uppercase" }}>Pourquoi avoir quelqu'un sur place ?</h2>
+          <h2 className="sf-display" style={{ fontSize: 24, marginBottom: 8, textTransform: "uppercase" }}>Pourquoi avoir quelqu'un sur place&nbsp;?</h2>
           <p style={{ fontSize: 13.5, color: "var(--slate)", margin: "0 0 22px" }}>
-            Six façons de voir ailleurs, sans vous déplacer.
+            Une façon de voir comme si vous y étiez.
           </p>
           <div className="sf-usecases-grid">
             {USE_CASES.map((u) => (
@@ -431,7 +431,7 @@ export default function RootPage() {
           <div className="sf-usecases-cta sf-reveal">
             <div>
               <h3 className="sf-display" style={{ fontSize: 20, lineHeight: 1.05, marginBottom: 6, textTransform: "uppercase" }}>
-                Vous avez besoin de quelqu'un sur place ?
+                Vous avez besoin de quelqu'un sur place&nbsp;?
               </h3>
               <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.4, margin: 0, maxWidth: 440 }}>
                 Échangez directement avec votre Reporter et faites-lui part de votre demande.
