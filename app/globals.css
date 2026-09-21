@@ -299,9 +299,36 @@ a[href*="netlify.com"][class*="badge"],
 
 .sf-usecases-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+@media (min-width: 720px) {
+  .sf-usecases-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+/* CTA "Vous avez besoin de quelqu'un sur place ?" sous les cartes. */
+.sf-usecases-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface);
   margin-bottom: 44px;
+}
+@media (min-width: 720px) {
+  .sf-usecases-cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px 28px;
+  }
 }
 
 .sf-reward-banner {

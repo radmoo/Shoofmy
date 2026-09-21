@@ -9,13 +9,12 @@ import {
   MapPin,
   Star,
   Zap,
-  Camera,
   ShieldCheck,
   ArrowRight,
-  Home,
-  UtensilsCrossed,
-  CalendarClock,
-  Radio,
+  Mountain,
+  PartyPopper,
+  Eye,
+  Sparkles,
   Users,
   MessageCircle,
   CreditCard,
@@ -31,17 +30,73 @@ import { useSession } from "@/lib/context/SessionContext";
 import { REPORTERS, DURATIONS } from "@/lib/mock-data";
 import { useReveal } from "@/lib/useReveal";
 
-// Catégories de vitrine pour la nav desktop — reflètent les 6 cas
-// d'usage de la section "Vous voulez voir quoi ?" plus bas sur la même
-// page, pas une vraie taxonomie de filtrage (pas de route dédiée à ce stade).
+// Catégories de vitrine pour la nav desktop — reflètent les 6 raisons
+// d'avoir quelqu'un sur place (section "Pourquoi avoir quelqu'un sur place ?"
+// plus bas sur la même page), pas une vraie taxonomie de filtrage (pas de
+// route dédiée à ce stade).
 const CATEGORIES = [
   "Tout",
-  "Logement",
-  "Restaurants",
-  "Produits",
+  "Découvrir le monde",
+  "Paysages",
   "Événements",
-  "Situations en direct",
-  "Lieux à distance",
+  "Ce qui se passe",
+  "Avant de se déplacer",
+  "Demande particulière",
+];
+
+// Les 6 raisons d'avoir quelqu'un sur place. Chaque carte = un titre, un
+// slogan, une description. Les visuels sont des images locales (à déposer
+// dans /public/usecases/ — voir le README de ce dossier) : une scène
+// réaliste, prise "comme si quelqu'un était vraiment sur place".
+const USE_CASES = [
+  {
+    icon: Globe,
+    title: "Découvrir le monde",
+    tagline: "Découvrez ce qui se trouve au-delà de votre horizon.",
+    desc: "Partez à la découverte de nouvelles cultures, de traditions et de modes de vie à travers le regard de quelqu'un sur place.",
+    image: "/usecases/decouvrir-le-monde.webp",
+    alt: "Marché local animé, vu depuis la rue",
+  },
+  {
+    icon: Mountain,
+    title: "Explorer des paysages",
+    tagline: "Voyez des endroits que vous ne connaissez pas.",
+    desc: "Des plages aux montagnes, des grandes villes aux petits villages… découvrez des paysages et des lieux aux quatre coins du monde.",
+    image: "/usecases/explorer-des-paysages.webp",
+    alt: "Grand paysage naturel",
+  },
+  {
+    icon: PartyPopper,
+    title: "Vivre un événement",
+    tagline: "Soyez là, même à distance.",
+    desc: "Concert, festival, fête locale, marché, événement sportif… découvrez l'ambiance et vivez le moment comme si vous y étiez.",
+    image: "/usecases/vivre-un-evenement.webp",
+    alt: "Foule devant la scène d'un concert en plein air",
+  },
+  {
+    icon: Eye,
+    title: "Voir ce qui se passe",
+    tagline: "Soyez au cœur de l'action.",
+    desc: "Une rue animée, une situation particulière ou simplement quelque chose qui attire votre attention… regardez ce qui se passe, en direct.",
+    image: "/usecases/voir-ce-qui-se-passe.webp",
+    alt: "Scène spontanée dans une rue",
+  },
+  {
+    icon: MapPin,
+    title: "Avant de vous déplacer",
+    tagline: "Voyez avant d'y aller.",
+    desc: "Vous voulez découvrir un endroit avant de faire le déplacement ? Jetez-y un œil et voyez si l'endroit vous donne envie d'y aller.",
+    image: "/usecases/avant-de-vous-deplacer.webp",
+    alt: "Personne qui vérifie un restaurant avant d'y aller",
+  },
+  {
+    icon: Sparkles,
+    title: "Une demande particulière",
+    tagline: "Vous avez une idée ?",
+    desc: "Envie de voir quelque chose de précis ou de vivre une expérience particulière ? Expliquez ce que vous souhaitez et laissez votre Reporter s'en charger.",
+    image: "/usecases/une-demande-particuliere.webp",
+    alt: "Reporter qui montre un stand précis dans une foire",
+  },
 ];
 
 // Landing publique — inspirée du mockup desktop (recherche, cards LIVE
@@ -166,14 +221,14 @@ export default function RootPage() {
         {/* Hero */}
         <div className="sf-hero-grid">
           <div>
-            <h1 className="sf-display" style={{ fontSize: "clamp(28px, 8vw, 54px)", lineHeight: 0.98, marginBottom: 10, textTransform: "uppercase" }}>
-              Quelqu'un,<br />sur place.<br /><span style={{ color: "var(--signal)" }}>Pour vous.</span>
+            <h1 className="sf-display" style={{ fontSize: "clamp(24px, 6.6vw, 48px)", lineHeight: 1, marginBottom: 12, textTransform: "uppercase" }}>
+              Vous ne pouvez pas y être ?<br /><span style={{ color: "var(--signal)" }}>Quelqu'un peut y aller pour vous.</span>
             </h1>
             <p style={{ fontSize: 12.5, color: "var(--slate)", maxWidth: 440, marginBottom: 6, lineHeight: 1.4 }}>
-              Vous voulez voir quelque chose qui est loin ? Un Reporter Shoofmy se rend sur place et vous le montre en direct.
+              Envie de découvrir, de vivre quelque chose ou simplement de voir ce qui se passe ailleurs ?
             </p>
             <p className="sf-display" style={{ fontSize: 12.5, marginBottom: 14, lineHeight: 1.3, textTransform: "uppercase" }}>
-              Un besoin. Une curiosité. Une envie.<br />Vous choisissez. Le Reporter filme.
+              Un Reporter se rend sur place et vous le montre en direct.
             </p>
             {/* Prix : donnée réelle (lib/mock-data DURATIONS), pas un chiffre inventé —
                 affiche le palier le moins cher, le reste est expliqué dans "Comment ça marche". */}
@@ -311,13 +366,6 @@ export default function RootPage() {
           <StatItem icon={<ShieldCheck size={14} style={{ color: "var(--signal)" }} />} value={`${verifiedPercent}%`} label="Reporters vérifiés" />
         </div>
 
-        {/* Signature secondaire */}
-        <div className="sf-reveal" style={{ marginBottom: 4, textAlign: "center" }}>
-          <h2 className="sf-display" style={{ fontSize: "clamp(20px, 6vw, 32px)", lineHeight: 1.05, textTransform: "uppercase" }}>
-            Vous voulez voir ?<br /><span style={{ color: "var(--signal)" }}>Quelqu'un y va.</span>
-          </h2>
-        </div>
-
         {/* Comment ça marche */}
         <div style={{ marginBottom: 8 }}>
           <h2 className="sf-display" style={{ fontSize: 24, marginBottom: 20, textTransform: "uppercase" }}>Comment ça marche</h2>
@@ -341,40 +389,60 @@ export default function RootPage() {
           </div>
         </div>
 
-        {/* Vous voulez voir quoi ? — anciennement "À quoi ça sert" : le titre
-            précédent laissait croire que ces 6 cartes définissaient Shoofmy.
-            Reformulé pour que ce soit clairement lu comme des exemples parmi
-            d'autres, pas comme une liste fermée de fonctionnalités. */}
+        {/* Pourquoi avoir quelqu'un sur place ? — 6 raisons distinctes, pas une
+            liste fermée de fonctionnalités. Titre + slogan + description :
+            le contenu prime sur la compacité, les cartes sont donc plus hautes
+            que l'ancien format (2 colonnes sur mobile, 3 sur desktop). */}
         <div>
-          <h2 className="sf-display" style={{ fontSize: 24, marginBottom: 8, textTransform: "uppercase" }}>Vous voulez voir quoi ?</h2>
+          <h2 className="sf-display" style={{ fontSize: 24, marginBottom: 8, textTransform: "uppercase" }}>Pourquoi avoir quelqu'un sur place ?</h2>
           <p style={{ fontSize: 13.5, color: "var(--slate)", margin: "0 0 22px" }}>
-            Un besoin, une curiosité, une envie. Ou simplement l'envie de voir ce qui se passe là-bas.
+            Six façons de voir ailleurs, sans vous déplacer.
           </p>
           <div className="sf-usecases-grid">
-            {[
-              { icon: Home, title: "Vérifier un logement", desc: "Je veux voir l'appartement avant de faire 600 km.", photo: "photo-1583847268964-b28dc8f51f92" },
-              { icon: UtensilsCrossed, title: "Choisir un restaurant", desc: "Montre-moi l'ambiance avant que je réserve.", photo: "photo-1744561249162-c597c1670032" },
-              { icon: Camera, title: "Faire vérifier un produit", desc: "Peux-tu me montrer l'état exact de cet objet ?", photo: "photo-1741061964577-3d4f0a021666" },
-              { icon: CalendarClock, title: "Suivre un événement", desc: "Vivez-le à distance, en direct, comme si vous y étiez.", photo: "photo-1767289394567-b5e4b5986c88" },
-              { icon: Radio, title: "Voir une situation en direct", desc: "Ce qui se passe là-bas, maintenant, par quelqu'un qui y est.", photo: "photo-1592331669171-e266b8cb89ff" },
-              { icon: MapPin, title: "Découvrir un endroit à distance", desc: "Une rue, un quartier, un lieu — vu par quelqu'un sur place.", photo: "photo-1750196995049-d9019c34271e" },
-            ].map((u) => (
-              <div key={u.title} className="sf-usecase-card sf-reveal" style={{ borderRadius: 12, border: "1px solid var(--line)", background: "var(--surface)", overflow: "hidden" }}>
-                <div style={{ height: 80, backgroundImage: `url(https://images.unsplash.com/${u.photo}?auto=format&fit=crop&w=500&h=300&q=60)`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-                  <div style={{ position: "absolute", top: 8, left: 8, width: 24, height: 24, borderRadius: 999, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <u.icon size={11} style={{ color: "var(--signal)" }} />
+            {USE_CASES.map((u) => (
+              <div key={u.title} className="sf-usecase-card sf-reveal" style={{ borderRadius: 12, border: "1px solid var(--line)", background: "var(--surface)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                <div
+                  role="img"
+                  aria-label={u.alt}
+                  style={{
+                    aspectRatio: "4 / 3",
+                    backgroundColor: "var(--surface-2)",
+                    backgroundImage: `url(${u.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    position: "relative",
+                    flexShrink: 0,
+                  }}
+                >
+                  <div style={{ position: "absolute", top: 8, left: 8, width: 28, height: 28, borderRadius: 999, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <u.icon size={13} style={{ color: "var(--signal)" }} />
                   </div>
                 </div>
-                <div style={{ padding: "10px 9px 12px" }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 3, lineHeight: 1.25 }}>{u.title}</div>
-                  <div style={{ fontSize: 10, color: "var(--slate)", lineHeight: 1.35 }}>{u.desc}</div>
+                <div style={{ padding: "12px 11px 14px" }}>
+                  <h3 className="sf-display" style={{ fontSize: 17, lineHeight: 1.05, marginBottom: 6, textTransform: "uppercase" }}>{u.title}</h3>
+                  <div style={{ fontSize: 12.5, fontWeight: 600, lineHeight: 1.3, marginBottom: 6 }}>{u.tagline}</div>
+                  <div style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.45 }}>{u.desc}</div>
                 </div>
               </div>
             ))}
           </div>
-          <p style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", margin: "14px 0 0", textAlign: "center" }}>
-            Ce ne sont que quelques exemples — Shoofmy peut vous montrer bien plus encore.
-          </p>
+
+          {/* CTA sous les cartes */}
+          <div className="sf-usecases-cta sf-reveal">
+            <div>
+              <h3 className="sf-display" style={{ fontSize: 20, lineHeight: 1.05, marginBottom: 6, textTransform: "uppercase" }}>
+                Vous avez besoin de quelqu'un sur place ?
+              </h3>
+              <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.4, margin: 0, maxWidth: 440 }}>
+                Échangez directement avec votre Reporter et faites-lui part de votre demande.
+              </p>
+            </div>
+            <Link href="/explorer">
+              <span className="sf-btn" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6, padding: "12px 16px", borderRadius: 10, background: "var(--ink)", color: "#fff", fontWeight: 600, fontSize: 12.5, whiteSpace: "nowrap", flexShrink: 0 }}>
+                <Zap size={13} />Trouver un reporter<ArrowRight size={13} />
+              </span>
+            </Link>
+          </div>
         </div>
 
         {/* Des Reporters vérifiés — renforce la confiance et explique le
@@ -447,6 +515,16 @@ export default function RootPage() {
               Un live plus stable, mains libres, directement depuis les lunettes caméra de vos reporters.
             </div>
           </div>
+        </div>
+
+        {/* Signature de marque */}
+        <div className="sf-reveal" style={{ textAlign: "center", marginBottom: 28 }}>
+          <div className="sf-mono" style={{ fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--slate)", fontWeight: 700, marginBottom: 6 }}>
+            Shoofmy
+          </div>
+          <h2 className="sf-display" style={{ fontSize: "clamp(20px, 6vw, 32px)", lineHeight: 1.05, textTransform: "uppercase" }}>
+            Quelqu'un, sur place.<br /><span style={{ color: "var(--signal)" }}>Pour vous.</span>
+          </h2>
         </div>
 
         <div style={{ textAlign: "center", fontSize: 12, color: "var(--slate)", paddingTop: 20, borderTop: "1px solid var(--line)" }}>
